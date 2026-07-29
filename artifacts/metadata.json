@@ -1,0 +1,6 @@
+{
+    "model_path": "artifacts/models/model_20260729_200755.pkl",
+    "model_features_path": "artifacts/models/model_features_20260729_200755.pkl",
+    "model_hmac": "866dc4b883062a37833c8e4ef70f7b04f9b1b6ebda8a4d35fe23a1158b483155",
+    "model_features_hmac": "2d0103c8cc790f5d0b5c38640322b00177c6e6b89932999d1c63afe3ed031458"
+}

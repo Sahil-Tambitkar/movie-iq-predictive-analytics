@@ -1,0 +1,8 @@
+paths:
+  input_data: movies.csv
+  model: artifacts/models/model_20260724_200328.pkl
+  model_features: artifacts/models/model_features_20260724_200328.pkl
+pipeline:
+  top_genres_n: 5
+business_logic:
+  success_multiplier: 2.5

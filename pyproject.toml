@@ -1,0 +1,25 @@
+[project]
+name = "movieiq"
+version = "0.1.0"
+description = "MovieIQ Predictive Analytics"
+dependencies = [
+    "pandas>=2.0.0",
+    "numpy>=1.24.0",
+    "matplotlib>=3.7.0",
+    "seaborn>=0.12.0",
+    "scipy>=1.10.0",
+    "scikit-learn>=1.2.0",
+    "streamlit>=1.20.0",
+    "joblib>=1.2.0",
+    "plotly>=5.14.0",
+    "PyYAML>=6.0.0",
+    "imbalanced-learn>=0.10.0",
+    "pytest>=7.0.0"
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["src"]
