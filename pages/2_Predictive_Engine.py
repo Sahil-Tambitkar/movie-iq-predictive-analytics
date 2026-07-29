@@ -35,7 +35,7 @@ try:
     model = joblib.load(config['paths']['model'])
     model_features = joblib.load(config['paths']['model_features'])
 except Exception as e:
-    st.error("Model not found. Please run the training script first.")
+    st.error(f"Model error: {str(e)}. Please run the training script first.")
     st.stop()
     
 numeric_features = [f for f in model_features if not f.startswith('genre_')]
