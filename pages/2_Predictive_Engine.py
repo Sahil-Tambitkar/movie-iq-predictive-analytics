@@ -35,8 +35,16 @@ try:
     model = joblib.load(config['paths']['model'])
     model_features = joblib.load(config['paths']['model_features'])
 except Exception as e:
-    st.error(f"Model error: {str(e)}. Please run the training script first.")
-    st.stop()
+    st.warning(f"Model version mismatch or not found ({str(e)}). Retraining model on the cloud now. This will take just a moment...")
+    with st.spinner("Training predictive models..."):
+        from src.pipeline import run_pipeline
+        run_pipeline()
+        
+    # Reload config and models after training
+    config = load_config()
+    model = joblib.load(config['paths']['model'])
+    model_features = joblib.load(config['paths']['model_features'])
+    st.success("Model successfully retrained for this environment!")
     
 numeric_features = [f for f in model_features if not f.startswith('genre_')]
 top_genres = [f.replace('genre_', '') for f in model_features if f.startswith('genre_')]
