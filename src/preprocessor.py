@@ -40,8 +40,20 @@ def load_and_clean_data(filepath: str, success_multiplier: float = 2.5) -> pd.Da
         logger.error(f"Dataset not found at {filepath}")
         raise
         
+    # 4. Missing Values Handling
+    # Numeric columns -> Fill with Median
+    for col in ['budget', 'revenue', 'popularity', 'runtime', 'vote_average']:
+        if col in df.columns:
+            df[col] = df[col].fillna(df[col].median())
+            
+    # Text columns -> Fill with Mode or "Unknown"
+    for col in ['title', 'genres']:
+        if col in df.columns:
+            df[col] = df[col].fillna("Unknown")
+            
+    # 5. Data Cleaning
+    # Remove duplicate movies
     df.drop_duplicates(inplace=True)
-    df.dropna(subset=['budget', 'revenue', 'title', 'genres'], inplace=True)
     
     # Security: Sanitize strings to prevent CSV/Formula injection
     def sanitize_csv_string(val):
@@ -51,13 +63,17 @@ def load_and_clean_data(filepath: str, success_multiplier: float = 2.5) -> pd.Da
         
     df['title'] = df['title'].apply(sanitize_csv_string)
             
-    # Filter valid financial records
+    # Check negative budget or revenue (filter out or ensure > 0)
     df = df[(df['budget'] > 0) & (df['revenue'] > 0)].copy()
     
     # Calculate success based on the configurable multiplier
     df['success'] = (df['revenue'] >= (df['budget'] * success_multiplier)).astype(int)
     
-    df['genre_list'] = df['genres'].apply(extract_genres)
+    # Extract genres and format them nicely to replace raw JSON
+    df['genre_list'] = df['genres'].apply(lambda x: extract_genres(x) if x != "Unknown" else ["Unknown"])
+    df['Genres'] = df['genre_list'].apply(lambda x: ", ".join(x))
+    df.drop(columns=['genres'], inplace=True)
+    
     return df
 
 def get_all_genres(df: pd.DataFrame) -> List[str]:

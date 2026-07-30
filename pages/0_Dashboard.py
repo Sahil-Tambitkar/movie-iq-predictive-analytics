@@ -43,7 +43,9 @@ st.markdown("<hr/>", unsafe_allow_html=True)
 
 # 3. Dataset Preview
 st.subheader("Dataset Preview")
-st.dataframe(filtered_df.head(100), use_container_width=True)
+display_df = filtered_df.drop(columns=['genre_list']) if 'genre_list' in filtered_df.columns else filtered_df.copy()
+display_df.columns = [c.replace('_', ' ').title() for c in display_df.columns]
+st.dataframe(display_df.head(100), use_container_width=True)
 
 st.markdown("<hr/>", unsafe_allow_html=True)
 
