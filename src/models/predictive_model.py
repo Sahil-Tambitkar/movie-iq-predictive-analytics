@@ -54,11 +54,16 @@ def train_and_save_model(
     best_pipeline = grid_search.best_estimator_
     logger.info(f"Best parameters found: {grid_search.best_params_}")
     
-    preds = best_pipeline.predict(X_test)
+    preds_log = best_pipeline.predict(X_test)
     
-    mae = mean_absolute_error(y_test, preds)
-    rmse = np.sqrt(mean_squared_error(y_test, preds))
-    r2 = r2_score(y_test, preds)
+    # Transform predictions and actuals back to original dollar scale for interpretable metrics
+    preds = np.expm1(preds_log)
+    y_test_dollars = np.expm1(y_test)
+    
+    mae = mean_absolute_error(y_test_dollars, preds)
+    rmse = np.sqrt(mean_squared_error(y_test_dollars, preds))
+    r2 = r2_score(y_test_dollars, preds)
+
     
     logger.info(f"Model MAE: ${mae:,.2f}")
     logger.info(f"Model RMSE: ${rmse:,.2f}")
@@ -69,8 +74,8 @@ def train_and_save_model(
     
     # 1. Actual vs Predicted Scatter Plot
     plt.figure(figsize=(7, 6))
-    plt.scatter(y_test, preds, alpha=0.5, color='blue', edgecolor='k')
-    plt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], 'r--', lw=2)
+    plt.scatter(y_test_dollars, preds, alpha=0.5, color='blue', edgecolor='k')
+    plt.plot([y_test_dollars.min(), y_test_dollars.max()], [y_test_dollars.min(), y_test_dollars.max()], 'r--', lw=2)
     plt.xlabel('Actual Revenue')
     plt.ylabel('Predicted Revenue')
     plt.title(f'Actual vs Predicted Revenue (R2: {r2:.2f})')
@@ -79,7 +84,7 @@ def train_and_save_model(
     plt.close()
     
     # 2. Residual Plot
-    residuals = y_test - preds
+    residuals = y_test_dollars - preds
     plt.figure(figsize=(7, 6))
     plt.scatter(preds, residuals, alpha=0.5, color='purple', edgecolor='k')
     plt.axhline(0, color='r', linestyle='--', lw=2)

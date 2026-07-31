@@ -41,11 +41,9 @@ def load_and_clean_data(filepath: str, success_multiplier: float = 2.5) -> pd.Da
         raise
         
     # 4. Missing Values Handling
-    # Numeric columns -> Fill with Median
-    for col in ['budget', 'revenue', 'popularity', 'runtime', 'vote_average']:
-        if col in df.columns:
-            df[col] = df[col].fillna(df[col].median())
-            
+    # Note: Numeric columns will be imputed during the pipeline after train-test split to avoid data leakage.
+    
+
     # Text columns -> Fill with Mode or "Unknown"
     for col in ['title', 'genres']:
         if col in df.columns:

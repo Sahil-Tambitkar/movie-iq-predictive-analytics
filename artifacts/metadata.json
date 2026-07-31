@@ -1,6 +1,6 @@
 {
-    "model_path": "artifacts/models/model_20260730_191625.pkl",
-    "model_features_path": "artifacts/models/model_features_20260730_191625.pkl",
-    "model_hmac": "42dcca420fb95a3bcc449a00f9d62ec1f9bedc1385b645cbe6822f83deca1d84",
-    "model_features_hmac": "17c025342f0aa67cf2af321bc8bf8a574581787943b8af23e03f673990d866fc"
+    "model_path": "artifacts/models/model_20260731_072612.pkl",
+    "model_features_path": "artifacts/models/model_features_20260731_072612.pkl",
+    "model_hmac": "af721f40782db897570802a1a721f9cb6eecdffb04ac244a100b7b1f4e8c3ad0",
+    "model_features_hmac": "2d0103c8cc790f5d0b5c38640322b00177c6e6b89932999d1c63afe3ed031458"
 }

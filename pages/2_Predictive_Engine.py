@@ -3,6 +3,7 @@ import pandas as pd
 import joblib
 import json
 import os
+import numpy as np
 from src.config_loader import load_config
 from src.utils import apply_global_styles
 
@@ -100,7 +101,9 @@ else:
     input_df = pd.DataFrame([input_data])[model_features]
     
     # Get the raw regression prediction (predicted revenue)
-    predicted_revenue = model.predict(input_df)[0]
+    # The model predicts log(revenue), so we use np.expm1 to convert back to dollars
+    predicted_log_revenue = model.predict(input_df)[0]
+    predicted_revenue = np.expm1(predicted_log_revenue)
     # Ensure revenue doesn't predict negative
     predicted_revenue = max(0, predicted_revenue)
     

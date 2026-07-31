@@ -1,5 +1,5 @@
 Regression Metrics on Test Set:
 ---------------------------------
-Mean Absolute Error (MAE): $68,436,750.54
-Root Mean Squared Error (RMSE): $90,135,421.28
-R-squared (R2): 0.5630
+Mean Absolute Error (MAE): $69,983,435.88
+Root Mean Squared Error (RMSE): $93,748,824.02
+R-squared (R2): 0.5273
