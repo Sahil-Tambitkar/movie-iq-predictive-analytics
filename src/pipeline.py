@@ -2,8 +2,6 @@ import logging
 import os
 import json
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
 from .preprocessor import load_and_clean_data
 from .features import engineer_features, get_top_genres
 from .models.predictive_model import train_and_save_model

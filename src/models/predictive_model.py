@@ -6,7 +6,6 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.ensemble import HistGradientBoostingRegressor
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 import matplotlib.pyplot as plt
-import seaborn as sns
 import os
 from sklearn.pipeline import Pipeline
 from sklearn.impute import SimpleImputer
